@@ -1,0 +1,72 @@
+<head>
+  <meta charset="utf-8">
+ 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>  input[type=submit] { width: 50%; background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; border-radius: 4px; cursor: pointer; } 
+input[type=submit]:hover { background-color: #45a049; } 
+div { border-radius: 5px; background-color: #f2f2f2; padding: 20px; } </style>
+<div>
+<center>
+<h1> SMS SENDER BY LY PRO  </h1>
+<form method="post" action="">
+<h2>Subject</h2>
+<input type="text" name="from" value="<?php if(isset($_POST['from'])){echo $_POST['from']; } else {
+if(isset($s)){echo $s;} 
+} ?>">
+<h2>Message</h2> 
+<textarea class="form-control" name="message" rows="5" placeholder="Put Message Here "><?php if(isset($_POST['message'])){echo $_POST['message']; } else {
+if(isset($m)){echo $m;}} ?>
+</textarea>
+<h2>List</h2>
+<textarea class="form-control" name="number"
+ rows="5" placeholder="Put Number List Here"><?php
+ 
+if(isset($_POST["load"])){
+$txt = file_get_contents("not_sent.txt");
+echo $txt;
+}else{if(isset($_POST['number'])){echo $_POST['number']; } else {
+if(isset($l)){echo $l;}}} ?>
+</textarea><BR/><BR/>
+
+
+<input type="submit" name="submit" value="Send"/>
+
+
+<h2><font color="red"> You Can Use Only To Isreal Number</font></h2>
+</form>
+<form method="post" action="">
+<input type="submit" name="load" value="Load Not Send file"/>
+</form><br>
+<?php 
+set_time_limit(0);
+if(isset($_POST['submit'])){
+$letter = $_POST['message'];
+$mailist = $_POST['number'];
+$from = $_POST["from"];
+$message = $letter;
+$line = 0;
+$list = explode("\n",$_POST['number']);
+foreach ($list as $number){ 
+$line = $line+1;
+}
+?>
+<H4>Total Number : <?php echo $line; ?> </H4>
+<?php
+$spamed = 0;
+$tnumber ="1";
+foreach ($list as $number){ 
+$spamed = $spamed+1;
+echo " ".$spamed."/".$line." ><b>".$number." => status :";
+include "result.php";
+$tnumber = $tnumber + "1";
+if($tnumber == "2" ){
+$tnumber = "1"; }
+}}
+
+
+
+?>
+
+</center>
